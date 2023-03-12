@@ -4,11 +4,11 @@ import PeopleList from './components/PeopleList';
 import Pagination from './components/Pagination';
 function App() {
   const [data, setData] = useState([]);
-//  const [newData, setNewData] = useState({});
+  const [message, setMessage] = useState(null);    
 // User is currently on this page
 const [currentPage, setCurrentPage] = useState(1);
 // No of Records to be displayed on each page   
-const recordsPerPage = 15;
+const recordsPerPage = 10;
   useEffect(() => {
     axios.get('peopleapi/person/getall').then(response => setData(response.data));
   }, [data]);
@@ -21,13 +21,15 @@ const recordsPerPage = 15;
     
     <div>
       <div className='container mt-5'>
-            <PeopleList data={currentRecords} />
+            <PeopleList data={currentRecords} message={message} setMessage={setMessage} />
             <Pagination
                 nPages={nPages}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 data = {data}
                 setData = {setData}
+                message={message} 
+                setMessage={setMessage}
             />
       </div>
     </div>
